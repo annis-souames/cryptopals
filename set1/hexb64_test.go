@@ -6,9 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+	"fmt"
 )
 
 func ch1(inputHex string) (string, error) {
@@ -20,10 +18,14 @@ func ch1(inputHex string) (string, error) {
 }
 
 func TestCh1(t *testing.T) {
-	input := "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
+	input := "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d" 
 	want := "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t"
-
 	got, err := ch1(input)
-	require.NoError(t, err)   // stops the test if decoding failed
-	assert.Equal(t, want, got)
+	fmt.Printf("Got: %s\n",got)
+	if err != nil {
+		t.Fatalf("decode: %v", err)
+	}
+	if got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
 }
