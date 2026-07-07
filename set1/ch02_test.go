@@ -10,9 +10,11 @@ import (
 )
 
 func TestChallenge02(t *testing.T) {
-    a, _ := hex.DecodeString("1c0111001f010100061a024b53535009181c")
-    b, _ := hex.DecodeString("686f6c6c6f7768696465736e6f6f6b")
-    got, _ := cryptutil.FixedXOR(a, b)
+	inputA := "1c0111001f010100061a024b53535009181c"
+	inputB := "686974207468652062756c6c277320657965"
+	dataA, _ := hex.DecodeString(inputA)
+	dataB, _ := hex.DecodeString(inputB)
+    got, _ := cryptutil.FixedXOR(dataA, dataB)
     want := "746865206b696420646f6e277420706c6179"
     if hex.EncodeToString(got) != want {
         t.Errorf("got %x, want %s", got, want)
