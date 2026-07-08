@@ -9,7 +9,7 @@ import (
     "github.com/annis-souames/cryptopals/internal/cryptutil"
 )
 
-func TestChallenge02(t *testing.T) {
+func TestCh02(t *testing.T) {
 	inputA := "1c0111001f010100061a024b53535009181c"
 	inputB := "686974207468652062756c6c277320657965"
 	dataA, _ := hex.DecodeString(inputA)

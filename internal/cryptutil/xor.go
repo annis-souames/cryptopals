@@ -1,6 +1,10 @@
 // internal/cryptutil/xor.go
 package cryptutil
 
+import (
+	"errors"
+)
+
 // FixedXOR returns a XOR b (same length).
 func FixedXOR(a, b []byte) ([]byte, error) { 
 	if len(a) != len(b) {
