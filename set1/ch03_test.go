@@ -14,7 +14,7 @@ func TestCh03(t *testing.T) {
 	// We all try all combination of a 1 byte key: 256 possibilities (0-255)
 	for key := 0; key < 256; key++ {
 		got := cryptutil.SingleByteXOR(data, byte(key))
-		scores[key] = scoreEnglishLike(got)
+		scores[key] = cryptutil.ScoreEnglishText(got)
 		// Here we need to check if got is english-like
 		// For simplicity, we will just print the result for now
 		t.Logf("Key: %d, Result: %s, Score: %d", key, got, scores[key])
@@ -23,20 +23,6 @@ func TestCh03(t *testing.T) {
 	keyMaxScore := maxIdx(scores[:])
 
 	t.Logf("The key with highest score is %d and the original input is %s", keyMaxScore, cryptutil.SingleByteXOR(data, byte(keyMaxScore)))
-}
-
-// This function scores how "English-like" a byte slice is.
-func scoreEnglishLike(data []byte) int {
-	score := 0
-	for _, b := range data {
-		switch b {
-		case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
-			score += 1
-		case ' ', '\n', '\t':
-			score += 1
-		}
-	}
-	return score
 }
 
 // helper func to index of max in a slice
