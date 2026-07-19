@@ -22,6 +22,17 @@ func TestCh06(t *testing.T) {
 	keySizeMax := 40
 
 	for keySize := 2; keySize <= keySizeMax; keySize++ {
-		// hamming dist for first 2 blocks of keysize
+		// determine how many blocks of size keySize we can take from the input
+		numBlocks := len(input) / keySize
+		// iterate through the blocks per keysize worth of bytes, calculate normalized hamming dist.
+		totalNormalizedH := 0.0
+		for i := 0; i < numBlocks-1; i++ {
+			H := cryptutil.HammingDist(input[i*keySize:(i+1)*keySize], input[(i+1)*keySize:(i+2)*keySize])
+			normalizedH := float64(H) / float64(keySize)
+			totalNormalizedH += normalizedH
+		}
+		// compute average of distances array for this pass/keysize:
+		averageNormalizedH := totalNormalizedH / float64(numBlocks-1)
+		t.Logf("Key size: %d, Average normalized Hamming distance: %f", keySize, averageNormalizedH)
 	}
 }
